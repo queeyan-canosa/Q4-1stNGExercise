@@ -5,7 +5,7 @@
   <meta name="author" content="">
   <meta name="description" content="">
   <meta name="keywords" content="">
-  <title</title>
+  <title></title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="style.css">
@@ -23,14 +23,17 @@
 
   <!-- Start Content -->
   <div id="home" class="w3-container w3-padding-64">
+    
+    <form action="/draw" method="post">
+  <label for="sideA">Side A (in ems):</label>
+  <input type="number" id="sideA" name="sideA" required><br>
 
-    <form action="/draw" method="GET">
-      <label for="sideLength">Enter the side length:</label>
-      <input type="number" id="sideLength" name="sideLength" required>
+  <label for="sideB">Side B (in ems):</label>
+  <input type="number" id="sideB" name="sideB" required><br>
 
-      <br>
-      <button type="submit">Draw Square</button>
-    </form>
+  <br>
+  <button type="submit"onclick="drawTriangle()">Draw Triangle</button>
+</form>
 
   </div>
 
