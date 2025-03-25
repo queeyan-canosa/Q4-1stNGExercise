@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <title</title>
+    <title></title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <link href="./style.css" rel="stylesheet" type="text/css" />
@@ -24,43 +24,53 @@
 
     <!-- Start Content -->
     <div id="home" class="w3-container w3-content w3-padding-64">
-        <h2>Square with Side {{sideLength}} </h2>
+        <h2>Triangle with Side {{sideA}} and {{sideB }} </h2>
         <canvas class=" w3-white" id="mycanvas" width="100" height="100"> 
           <!-- do not remove, this defines the drawing area/canvas with size of 100 by 100 -->
         </canvas>
     </div>
-    <footer class="w3-padding-large"> &copy; 2024 Sir Roy</footer>
+    <footer class="w3-padding-large"> &copy; 2024 Q. Canosa</footer>
 
     <script>
 
-        function drawSquare() {
+        function drawTriangle() {
 
             // sample use of handlbars 
-            const s = {{sideLength}};
+            const sideA = parseFloat(document.getElementById("sideA").value);
+            const sideB = parseFloat(document.getElementById("sideB").value);
+
+            // Validate user inputs
+            if (isNaN(sideA) || isNaN(sideB) || sideA <= 0 || sideB <= 0) {
+                alert("Please enter valid positive numbers for both sides.");
+                return;
+            }
+            const hypotenuse = Math.sqrt(sideA ** 2 + sideB ** 2).toFixed(2);
 
             let canvas = document.getElementById("mycanvas");
-            canvas.width = (s + 50);
-            canvas.height = (s + 50);
-            console.log(s)
+            let ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            var ctx = canvas.getContext("2d");
-            const o = 20; //offset to have space surroundig the square
-            // moving to the starting point
-            ctx.moveTo(o, o);
-            ctx.lineTo(o, o + s);
-            ctx.lineTo(o + s, o + s)
-            ctx.lineTo(o + s, o);
-            ctx.lineTo(o, o);
+            const scale = 2;
+            const offsetX = 50;
+            const offsetY = 450;
 
-            // for placing text
-            ctx.fillText(s, o + (s / 2), o + s)
-            ctx.fillText(s, o + 0, o + s / 2) 
-            
-            // to actually display the triangle
+            // Draw triangle
+            ctx.beginPath();
+            ctx.moveTo(offsetX, offsetY); // Start point
+            ctx.lineTo(offsetX + sideA / scale, offsetY); // Draw base
+            ctx.lineTo(offsetX, offsetY - sideB / scale); // Draw height
+            ctx.closePath();
             ctx.stroke();
+
+            // Add labels
+            ctx.fillStyle = "black";
+            ctx.font = "14px Arial";
+            ctx.fillText(`Side A: ${sideA}`, offsetX + sideA / (2 * scale) - 20, offsetY + 20); // Base label
+            ctx.fillText(`Side B: ${sideB}`, offsetX - 60, offsetY - sideB / (2 * scale)); // Height label
+            ctx.fillText(`Hypotenuse: ${hypotenuse}`, offsetX + sideA / (2 * scale) - 20, offsetY - sideB / (2 * scale) - 10); // Hypotenuse label
         }
 
-        drawSquare(); // call the call function
+        drawTriangle(); // call the call function
     </script>
 
 
